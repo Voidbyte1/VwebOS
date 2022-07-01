@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoidByte's Web OS</title>
+  <style>
+    body {
+  font-family: Arial;
+  overflow: hidden;
+  background-image: url('https://wallpaperaccess.com/full/4393640.jpg');
+}
+
+.app {
+  border: 2px #000000 solid;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: rgba(255, 255, 255, 75%);
+}
+
+.margin-top {
+  margin-top: 50px;
+}
+
+#note {
+  background: linear-gradient(to top, #00AAFF, #00FFAA);
+  border: 1px #000000 solid;
+  border-radius: 5px;
+  height: 22px;
+}
+
+#addNote {
+  background: linear-gradient(to top, #00AAFF, #00FFAA);
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
+}
+
+.title {
+  border-bottom: 2px #000000 solid;
+  position: fixed;
+  width: 1280px;
+  height: 20px;
+  background: linear-gradient(to top, rgba(100, 100, 100, 80%), rgba(200, 200, 200, 80%));
+}
+
+.menu {
+  border-bottom: 2px #000000 solid;
+  position: fixed;
+  width: 601px;
+  height: 20px;
+  background-color: #EEEEEE;
+  top: 32px;
+}
+
+.remove {
+  background: linear-gradient(to top, #FF0000, #FFAA00);
+  border-radius: 5px;
+}
+
+.close {
+  position: absolute;
+  right: 2px;
+  background: linear-gradient(to top, #FF0000, #FF5500);
+  border-radius: 5px;
+  width: 20px;
+  height: 18px;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to top, #00AAFF, #00FFAA);
+  border: 2px rgba(0, 0, 0, 50%) solid;
+  border-radius: 10px;
+}
+
+.addedNote {
+  transition: 0.5s;
+}
+
+.desktopIcon {
+  background-color: rgba(0, 0, 0, 0%);
+  border: none;
+}
+
+#notes {
+  min-width: 1280px;
+  min-height: 720px;
+}
+
+#web {
+  min-width: 1280px;
+  min-height: 720px;
+}
+
+#webpage {
+  min-width: 1280px;
+  min-height: 720px;
+}
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+  <button class="desktopIcon" onclick="$('#notes').css({'opacity': '100%', 'width': '600px'})"><img src="https://logodix.com/logo/1677266.png" width="50px"></img><br>Notepad</button>
+  <button class="desktopIcon" onclick="$('#web').css({'opacity': '100%', 'width': '600px'})"><img src="https://logodix.com/logo/1677266.png" width="50px"></img><br>Browser</button>
+
+  <div id="notes" class="app">
+  <div class="title">Notepad<button onclick="$('#notes').css({'opacity': '0%', 'width': '0px'})" class="close">X</div>
+  
+  <h1 class="margin-top">Take Notes</h1>
+  <input id="note"></input>
+  <button id="addNote">+</button>
+  </div>
+
+  <div id="web" class="app">
+    <div class="title">Browser<button onclick="$('#web').css({'opacity': '0%', 'width': '0px'})" class="close">X</div>
+    <input id="link">
+    <br>
+    <embed id="webpage" src="https://www.bing.com">
+  <script>
+    // ----------  ALL APPS CLOSED ON START ---------- \\
+
+$('.app').css({'opacity': '0%', 'width': '0px'});
+
+// ----------  DRAGGABLE WINDOWS ---------- \\
+
+$(function() {
+  $('.app').draggable();
+});
+
+// ---------- NOTES ---------- \\
+
+const input = document.getElementById('note');
+const addNote = document.getElementById('addNote');
+
+addNote.addEventListener('click', function() {
+  console.log(input.value);
+  const window = this.parentNode;
+  
+  //note
+  const note = document.createElement('h4');
+  note.innerHTML = input.value;
+  note.classList = 'addedNote';
+  
+  //remove button
+  const remove = document.createElement('button');
+  remove.innerHTML = 'X';
+  remove.classList = 'remove';
+  
+  //when X hit, remove the note
+  remove.addEventListener('click', function() {
+    note.remove();
+  });
+  
+  //append X button to note
+  note.appendChild(remove);
+  
+  //append to window
+  window.appendChild(note);
+});
+  </script>
+</body>
+</html>
